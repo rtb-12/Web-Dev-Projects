@@ -1,0 +1,314 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    /* background-color:#F8F9FA; */
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+
+.main{
+    display: flex;
+}
+
+.left{
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    width: 25%;
+    height: 98vh;
+    z-index: 1;
+    background-color: #E9ECEF;
+    border-radius: 30px;
+    box-shadow: 10px 10px 15px #ADB5BD;
+    transition: transform 0.3s ease-in-out; /* This adds a shadow to the element */
+    /* transform: perspective(600px) rotateX(5deg) rotateY(5deg); This gives a 3D perspective */
+}
+.left:hover {
+    transform: scale(1.02); /* This will scale the element to 1.3 times its size on hover */
+}
+
+
+.heading {
+    display: flex;
+    align-items: center;
+    margin: 20px;
+    gap: 5px;
+    background-color: #e9ecef00;
+}
+.heading h1 {
+    font-size: 40px;
+    font-weight: 600;
+    background-color: #e9ecef00;
+}
+.heading img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+.searchBox {
+    margin: 20px;
+    display: flex;
+    max-width: 230px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    background: #2f3640;
+    border-radius: 50px;
+    position: relative;
+  }
+  
+  .searchButton {
+    color: white;
+    position: absolute;
+    right: 8px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--gradient-2, linear-gradient(90deg, #2AF598 0%, #009EFD 100%));
+    border: 0;
+    display: inline-block;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  }
+  /*hover effect*/
+  button:hover {
+    color: #fff;
+    background-color: #1A1A1A;
+    box-shadow: rgba(0, 0, 0, 0.5) 0 10px 20px;
+    transform: translateY(-3px);
+  }
+  /*button pressing effect*/
+  button:active {
+    box-shadow: none;
+    transform: translateY(0);
+  }
+  
+  .searchInput {
+    border: none;
+    background: none;
+    outline: none;
+    color: white;
+    font-size: 15px;
+    padding: 24px 46px 24px 26px;
+  }
+  
+  
+
+.options ul {
+    margin: 20px;
+    list-style-type: none;
+    padding: 10px;
+    font-size: 25px;
+    font-weight:bolder;
+    background-color: #E9ECEF;
+}
+
+.options li {
+    border-bottom:2px solid #2f3640;
+    padding: 10px 0;
+    cursor: pointer;
+    background-color: #E9ECEF;
+    margin-bottom: 10px; 
+    opacity: 0.8;
+    transition: transform 0.3s ease-in-out;
+}
+
+.options li:hover {
+
+    opacity: 1;
+    transform: scale(1.02);
+}
+
+
+.topbar{
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    font-size: 2.5vw;
+    font-weight: bold;
+    opacity: 0.8;
+}
+
+.middlebar{
+    margin-left: 1.7vw;
+    margin-right: 1.7vw;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    /* font-size: 2.5vw;
+    font-weight: bold;
+    opacity: 0.8; */
+    background-color: #E9ECEF;
+    border-radius: 30px;
+    box-shadow: 10px 10px 15px #ADB5BD;
+    height:38vh ;
+    width:70vw;
+    transition: transform 0.3s ease-in-out; /* This will animate the scaling */
+}
+
+.middlebar:hover {
+    transform: scale(1.02); /* This will scale the element to 1.3 times its size on hover */
+}
+
+.middlebar nav{
+    display: flex;
+    justify-content: space-between;
+}
+
+.icons{
+    opacity: 0.7;
+    margin-top:10px;
+    margin-right: 5px;
+    transform: scale(1.8);
+}
+
+
+.details{
+    margin:1.7vw;
+    display: flex;
+    justify-content:space-evenly;
+}
+
+.albums{
+    margin:1.7vw;
+    display: flex;
+    /* justify-content:space-evenly; */
+    overflow-y: scroll;
+    gap:1vw;
+}
+
+
+.detailsleft{
+    /* margin: 10px; */
+    height: 45vh;
+    width: 50vw;
+    /* border: 2px solid black; */
+    background-color: #E9ECEF;
+    border-radius: 30px;
+    box-shadow: 10px 10px 15px #ADB5BD;
+    transition: transform 0.3s ease-in-out;
+    overflow-y: scroll;
+}
+.details .left {
+    overflow-y: scroll;
+}
+
+/* Style the scrollbar */
+.scrollbarCustom::-webkit-scrollbar {
+    width: 0.5vh; /* Adjust the width of the scrollbar */
+}
+
+.scrollbarCustom::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Change the track (background) color */
+}
+
+.scrollbarCustom::-webkit-scrollbar-thumb {
+    background: #888; /* Change the thumb (scroll handle) color */
+}
+
+.scrollbarCustom::-webkit-scrollbar-thumb:hover {
+    background: #555;/* Change the thumb color when hovered */
+    border-radius: 10px; 
+}
+
+
+.detailsleft:hover {
+    transform: scale(1.02); /* This will scale the element to 1.3 times its size on hover */
+}
+
+.detailsleft h1{
+    margin-top: 10px;
+    margin-left: 20px;
+}
+.queue img{
+    height: 10vh;
+    width: auto;
+
+}
+.queue{
+    margin:1.3vw;
+    display: flex;
+    /* justify-content:space-evenly; */
+    gap:1vw;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom:2px solid #2f3640 ;
+    border-top:2px solid #2f3640 ;
+}
+
+
+.queuemusicbuttons i {
+    font-size: 24px; /* Increase the size of the icons */
+    opacity: 0.6; /* Decrease the opacity of the icons */
+    transition: opacity 0.3s ease-in-out; /* This will animate the opacity change */
+}
+
+.queuemusicbuttons i:hover {
+    opacity: 1; /* Increase the opacity of the icons when hovered */
+}
+
+.detailsright{
+    height: 45vh;
+    width: 20vw;
+    /* border: 2px solid black; */
+    background-color: #E9ECEF;
+    border-radius: 30px;
+    box-shadow: 10px 10px 15px #ADB5BD;
+    transition: transform 0.3s ease-in-out;
+}
+
+.detailsright:hover {
+    transform: scale(1.02); /* This will scale the element to 1.3 times its size on hover */
+}
+
+.img-config{ height: 24vh;
+    width: auto;
+border-radius: 10px;
+box-shadow: 10px 10px 15px #ADB5BD;
+transition: transform 0.3s ease-in-out;
+}
+.img-config:hover {
+    transform: scale(1.02); /* This will scale the element to 1.3 times its size on hover */
+}
+
+.albumcover {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.albumcover img {
+    transform: translateY(5%);
+    height: 25vh;
+    width: auto;
+}
+
+.musiccontroller {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    height: 25vh; 
+    /* background-color: #202020; */
+    color: #000000;
+}
+
+.musicdetails h3, .musicdetails p {
+    margin: 0;
+    color: #000000;
+}
+
+.musicbuttons {
+    font-size: 43px;
+    display: flex;
+    gap: 15px;
+}
+
+.musicbuttons i {
+    color: #000000;
+    cursor: pointer;
+}
