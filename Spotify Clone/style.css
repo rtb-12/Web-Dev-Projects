@@ -1,314 +1,613 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
-
-
-*{
-    margin: 0;
-    padding: 0;
-    /* background-color:#F8F9FA; */
-    font-family: 'Open Sans', sans-serif;
+:root {
+    --animation-state: paused;
 }
 
 
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 
-.main{
-    display: flex;
+
+* {
+  margin: 0;
+  padding: 0;
+  /* background-color:#F8F9FA; */
+  font-family: "Open Sans", sans-serif;
 }
 
-.left{
-    margin-top: 1vh;
-    margin-bottom: 1vh;
-    width: 25%;
-    height: 98vh;
-    z-index: 1;
-    background-color: #E9ECEF;
-    border-radius: 30px;
-    box-shadow: 10px 10px 15px #ADB5BD;
-    transition: transform 0.3s ease-in-out; /* This adds a shadow to the element */
-    /* transform: perspective(600px) rotateX(5deg) rotateY(5deg); This gives a 3D perspective */
+.minicircle{
+    position: absolute;
+    height: 10px;
+    width: 10px;
+    z-index: 999;
+    border-radius: 50%;
+    background-color: #000000e8;
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1) ;
 }
-.left:hover {
-    transform: scale(1.02); /* This will scale the element to 1.3 times its size on hover */
+
+.main {
+  display: flex;
+  overflow: hidden;
+}
+
+.left {
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+  width: 25%;
+  height: 98vh;
+  z-index: 1;
+  background-color: #e9ecef;
+  border-radius: 30px;
+  box-shadow: 10px 10px 15px #adb5bd;
+  transition: transform 0.3s ease-in-out; /* This adds a shadow to the element */
+  /* transform: perspective(600px) rotateX(5deg) rotateY(5deg); This gives a 3D perspective */
 }
 
 
 .heading {
-    display: flex;
-    align-items: center;
-    margin: 20px;
-    gap: 5px;
-    background-color: #e9ecef00;
+  display: flex;
+  align-items: center;
+  margin: 20px;
+  gap: 5px;
+  background-color: #e9ecef00;
 }
 .heading h1 {
-    font-size: 40px;
-    font-weight: 600;
-    background-color: #e9ecef00;
+  font-size: 40px;
+  font-weight: 600;
+  background-color: #e9ecef00;
 }
 .heading img {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
+  width: 90px;
+  height: auto;
+  margin-right: 10px;
+  border-radius: 50%;
 }
 .searchBox {
-    margin: 20px;
-    display: flex;
-    max-width: 230px;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    background: #2f3640;
-    border-radius: 50px;
-    position: relative;
-  }
-  
-  .searchButton {
-    color: white;
-    position: absolute;
-    right: 8px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: var(--gradient-2, linear-gradient(90deg, #2AF598 0%, #009EFD 100%));
-    border: 0;
-    display: inline-block;
-    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
-  }
-  /*hover effect*/
-  button:hover {
-    color: #fff;
-    background-color: #1A1A1A;
-    box-shadow: rgba(0, 0, 0, 0.5) 0 10px 20px;
-    transform: translateY(-3px);
-  }
-  /*button pressing effect*/
-  button:active {
-    box-shadow: none;
-    transform: translateY(0);
-  }
-  
-  .searchInput {
-    border: none;
-    background: none;
-    outline: none;
-    color: white;
-    font-size: 15px;
-    padding: 24px 46px 24px 26px;
-  }
-  
-  
+  margin: 20px;
+  display: flex;
+  max-width: 430px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: #c0bebe;
+  border-radius: 50px;
+  position: relative;
+}
+
+.searchButton {
+  color: white;
+  position: absolute;
+  right: 8px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(
+    --gradient-2,
+    linear-gradient(90deg, #000000 0%, #aeaaaa 100%)
+  );
+  border: 0;
+  display: inline-block;
+  transition: all 300ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+/*hover effect*/
+button:hover {
+  color: #fff;
+  background-color: #1a1a1a;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 10px 20px;
+  transform: translateY(-3px);
+}
+/*button pressing effect*/
+button:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+.searchInput {
+  border: none;
+  background: none;
+  outline: none;
+  color: white;
+  font-size: 15px;
+  padding: 24px 46px 24px 26px;
+}
 
 .options ul {
-    margin: 20px;
-    list-style-type: none;
-    padding: 10px;
-    font-size: 25px;
-    font-weight:bolder;
-    background-color: #E9ECEF;
+  margin: 20px;
+  list-style-type: none;
+  padding: 10px;
+  font-size: 25px;
+  font-weight: bolder;
+  background-color: #e9ecef;
 }
 
 .options li {
-    border-bottom:2px solid #2f3640;
-    padding: 10px 0;
-    cursor: pointer;
-    background-color: #E9ECEF;
-    margin-bottom: 10px; 
-    opacity: 0.8;
-    transition: transform 0.3s ease-in-out;
+  border-bottom: 2px solid #2f3640;
+  padding: 10px 0;
+  cursor: pointer;
+  background-color: #e9ecef;
+  margin-bottom: 10px;
+  opacity: 0.8;
+  transition: transform 0.3s ease-in-out;
 }
 
 .options li:hover {
-
-    opacity: 1;
-    transform: scale(1.02);
+  opacity: 1;
+  transform: scale(1.02);
 }
 
-
-.topbar{
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    font-size: 2.5vw;
-    font-weight: bold;
+.creator{
     opacity: 0.8;
+    font-size: 13px;
+    position: absolute;
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+    background-color: #e9ecef;
+    border-radius: 30px;
+    box-shadow: 10px 10px 15px #adb5bd;
+    transition: transform 0.3s ease-in-out;
+    bottom: 1%;
+}
+.topbar {
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  font-size: 2.5vw;
+  font-weight: bold;
+  opacity: 0.8;
 }
 
-.middlebar{
-    margin-left: 1.7vw;
-    margin-right: 1.7vw;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 20px;
-    /* font-size: 2.5vw;
+.middlebar {
+  margin-left: 1.7vw;
+  margin-right: 1.7vw;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  /* font-size: 2.5vw;
     font-weight: bold;
     opacity: 0.8; */
-    background-color: #E9ECEF;
-    border-radius: 30px;
-    box-shadow: 10px 10px 15px #ADB5BD;
-    height:38vh ;
-    width:70vw;
-    transition: transform 0.3s ease-in-out; /* This will animate the scaling */
+  background-color: #e9ecef;
+  border-radius: 30px;
+  box-shadow: 10px 10px 15px #adb5bd;
+  height: 38vh;
+  width: 70vw;
+  transition: transform 0.3s ease-in-out; /* This will animate the scaling */
 }
 
 .middlebar:hover {
-    transform: scale(1.02); /* This will scale the element to 1.3 times its size on hover */
+  transform: scale(
+    1.02
+  ); }
+
+.middlebar nav {
+  display: flex;
+  justify-content: space-between;
 }
 
-.middlebar nav{
-    display: flex;
-    justify-content: space-between;
+.icons {
+  opacity: 0.7;
+  margin-top: 10px;
+  margin-right: 5px;
+  transform: scale(1.8);
 }
 
-.icons{
-    opacity: 0.7;
-    margin-top:10px;
-    margin-right: 5px;
-    transform: scale(1.8);
+.details {
+  margin: -0.3vw;
+  margin-top: 2vw;
+  display: flex;
+  justify-content: space-evenly;
 }
 
-
-.details{
-    margin:1.7vw;
-    display: flex;
-    justify-content:space-evenly;
+.albums {
+  margin: 1.7vw;
+  display: flex;
+  /* justify-content:space-evenly; */
+  overflow-y: scroll;
+  gap: 1vw;
 }
 
-.albums{
-    margin:1.7vw;
-    display: flex;
-    /* justify-content:space-evenly; */
-    overflow-y: scroll;
-    gap:1vw;
-}
-
-
-.detailsleft{
-    /* margin: 10px; */
-    height: 45vh;
-    width: 50vw;
-    /* border: 2px solid black; */
-    background-color: #E9ECEF;
-    border-radius: 30px;
-    box-shadow: 10px 10px 15px #ADB5BD;
-    transition: transform 0.3s ease-in-out;
-    overflow-y: scroll;
+.detailsleft {
+  /* margin: 10px; */
+  height: 45vh;
+  width: 50vw;
+  /* border: 2px solid black; */
+  background-color: #e9ecef;
+  border-radius: 30px;
+  box-shadow: 10px 10px 15px #adb5bd;
+  transition: transform 0.3s ease-in-out;
+  overflow-y: scroll;
 }
 .details .left {
-    overflow-y: scroll;
+  overflow-y: scroll;
 }
 
 /* Style the scrollbar */
 .scrollbarCustom::-webkit-scrollbar {
-    width: 0.5vh; /* Adjust the width of the scrollbar */
+  width: 0.5vh; /* Adjust the width of the scrollbar */
 }
 
 .scrollbarCustom::-webkit-scrollbar-track {
-    background: #f1f1f1; /* Change the track (background) color */
+  background: #f1f1f1; /* Change the track (background) color */
 }
 
 .scrollbarCustom::-webkit-scrollbar-thumb {
-    background: #888; /* Change the thumb (scroll handle) color */
+  background: #888; /* Change the thumb (scroll handle) color */
 }
 
 .scrollbarCustom::-webkit-scrollbar-thumb:hover {
-    background: #555;/* Change the thumb color when hovered */
-    border-radius: 10px; 
+  background: #555; /* Change the thumb color when hovered */
+  border-radius: 10px;
 }
-
 
 .detailsleft:hover {
-    transform: scale(1.02); /* This will scale the element to 1.3 times its size on hover */
+  transform: scale(
+    1.02
+  ); /* This will scale the element to 1.3 times its size on hover */
 }
 
-.detailsleft h1{
-    margin-top: 10px;
-    margin-left: 20px;
+.detailsleft h1 {
+  margin-top: 10px;
+  margin-left: 20px;
 }
-.queue img{
-    height: 10vh;
-    width: auto;
-
+.queue img {
+  height: 10vh;
+  width: auto;
 }
-.queue{
-    margin:1.3vw;
-    display: flex;
-    /* justify-content:space-evenly; */
-    gap:1vw;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border-bottom:2px solid #2f3640 ;
-    border-top:2px solid #2f3640 ;
+.queue {
+  margin: 1.3vw;
+  display: flex;
+  /* justify-content:space-evenly; */
+  gap: 1vw;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #2f3640;
+  border-top: 2px solid #2f3640;
 }
-
 
 .queuemusicbuttons i {
-    font-size: 24px; /* Increase the size of the icons */
-    opacity: 0.6; /* Decrease the opacity of the icons */
-    transition: opacity 0.3s ease-in-out; /* This will animate the opacity change */
+  font-size: 43px; /* Increase the size of the icons */
+  opacity: 0.6; /* Decrease the opacity of the icons */
+  transition: opacity 0.3s ease-in-out; /* This will animate the opacity change */
 }
 
 .queuemusicbuttons i:hover {
-    opacity: 1; /* Increase the opacity of the icons when hovered */
+  opacity: 1; /* Increase the opacity of the icons when hovered */
 }
 
-.detailsright{
-    height: 45vh;
-    width: 20vw;
-    /* border: 2px solid black; */
-    background-color: #E9ECEF;
-    border-radius: 30px;
-    box-shadow: 10px 10px 15px #ADB5BD;
-    transition: transform 0.3s ease-in-out;
+.detailsright {
+  height: 45vh;
+  width: 20vw;
+  /* border: 2px solid black; */
+  background-color: #e9ecef;
+  border-radius: 30px;
+  box-shadow: 10px 10px 15px #adb5bd;
+  transition: transform 0.3s ease-in-out;
 }
 
 .detailsright:hover {
-    transform: scale(1.02); /* This will scale the element to 1.3 times its size on hover */
+  transform: scale(
+    1.02
+  ); /* This will scale the element to 1.3 times its size on hover */
 }
 
-.img-config{ height: 24vh;
-    width: auto;
-border-radius: 10px;
-box-shadow: 10px 10px 15px #ADB5BD;
-transition: transform 0.3s ease-in-out;
+.img-config {
+  height: 24vh;
+  width: auto;
+  border-radius: 10px;
+  box-shadow: 10px 10px 15px #adb5bd;
+  transition: transform 0.3s ease-in-out;
 }
 .img-config:hover {
-    transform: scale(1.02); /* This will scale the element to 1.3 times its size on hover */
+  transform: scale(
+    1.02
+  ); /* This will scale the element to 1.3 times its size on hover */
 }
 
 .albumcover {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .albumcover img {
-    transform: translateY(5%);
-    height: 25vh;
-    width: auto;
+  transform: translateY(5%);
+  height: 25vh;
+  width: auto;
 }
 
 .musiccontroller {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    height: 25vh; 
-    /* background-color: #202020; */
-    color: #000000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  /* background-color: #202020; */
+  color: #000000;
 }
 
-.musicdetails h3, .musicdetails p {
-    margin: 0;
-    color: #000000;
+.musicdetails h3,
+.musicdetails p {
+  margin: 0;
+  color: #000000;
 }
 
 .musicbuttons {
-    font-size: 43px;
-    display: flex;
-    gap: 15px;
+  font-size: 43px;
+  display: flex;
+  gap: 15px;
+  opacity: 0.8;
 }
 
+
+
 .musicbuttons i {
-    color: #000000;
-    cursor: pointer;
+  color: #000000;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+
+.musicbuttons i:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+
+/* level settings 👇 */
+
+.slider {
+  /* slider */
+  --slider-width: 100%;
+  --slider-height: 6px;
+  --slider-bg: rgb(82, 82, 82);
+  --slider-border-radius: 999px;
+  /* level */
+  --level-color: #fff;
+  --level-transition-duration: 0.1s;
+  /* icon */
+  --icon-margin: 15px;
+  --icon-color: var(--slider-bg);
+  --icon-size: 25px;
+}
+
+/* vol control */
+.slider {
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.slider .volume {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: var(--icon-margin);
+  color: var(--icon-color);
+  width: var(--icon-size);
+  height: auto;
+}
+
+.slider .level {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: var(--slider-width);
+  height: var(--slider-height);
+  background: var(--slider-bg);
+  overflow: hidden;
+  border-radius: var(--slider-border-radius);
+  -webkit-transition: height var(--level-transition-duration);
+  -o-transition: height var(--level-transition-duration);
+  transition: height var(--level-transition-duration);
+  cursor: inherit;
+}
+
+.slider .level::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 0;
+  height: 0;
+  -webkit-box-shadow: -200px 0 0 200px var(--level-color);
+  box-shadow: -200px 0 0 200px var(--level-color);
+}
+
+.slider:hover .level {
+  height: calc(var(--slider-height) * 2);
+}
+
+/* wave .slider */
+
+.wave-menu {
+  border: 4px solid #555;
+  border-radius: 50px;
+  width: 150px;
+  height: 22.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  transition: ease 0.2s;
+  position: relative;
+  background: #fff;
+}
+
+.wave-menu li {
+  animation-play-state: var(--animation-state);
+  list-style: none;
+  height: 15px;
+  width: 4px;
+  border-radius: 10px;
+  background: #888;
+  margin: 0 6px;
+  padding: 0;
+  animation-name: wave1;
+  animation-duration: 0.3s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  transition: ease 0.2s;
+}
+
+.wave-menu:hover > li {
+  background: #fff;
+}
+
+.wave-menu:hover {
+  background: #3b3b3b;
+}
+
+.wave-menu li:nth-child(2) {
+  animation-name: wave2;
+  animation-delay: 0.2s;
+}
+
+.wave-menu li:nth-child(3) {
+  animation-name: wave3;
+  animation-delay: 0.23s;
+  animation-duration: 0.4s;
+}
+
+.wave-menu li:nth-child(4) {
+  animation-name: wave4;
+  animation-delay: 0.1s;
+  animation-duration: 0.3s;
+}
+
+.wave-menu li:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.wave-menu li:nth-child(6) {
+  animation-name: wave2;
+  animation-duration: 0.5s;
+}
+
+.wave-menu li:nth-child(8) {
+  animation-name: wave4;
+  animation-delay: 0.4s;
+  animation-duration: 0.25s;
+}
+
+.wave-menu li:nth-child(9) {
+  animation-name: wave3;
+  animation-delay: 0.15s;
+}
+
+@keyframes wave1 {
+  from {
+    transform: scaleY(1);
+  }
+
+  to {
+    transform: scaleY(0.5);
+  }
+}
+
+@keyframes wave2 {
+  from {
+    transform: scaleY(0.3);
+  }
+
+  to {
+    transform: scaleY(0.6);
+  }
+}
+
+@keyframes wave3 {
+  from {
+    transform: scaleY(0.6);
+  }
+
+  to {
+    transform: scaleY(0.8);
+  }
+}
+
+@keyframes wave4 {
+  from {
+    transform: scaleY(0.2);
+  }
+
+  to {
+    transform: scaleY(0.5);
+  }
+}
+
+.musicprogress {
+    width: 100%;
+    height: 5px;
+    background: #dedede;
+    height: 30px;
+    margin-top: 20px;
+    border-radius: 10px;
+    padding: 5px 0;
+}
+
+.musicprogress .slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 5px;
+  background: #555;
+  outline: none;
+  opacity: 0.7;;
+  -webkit-transition: 0.2s;
+  transition: opacity 0.2s;
+}
+
+.musicprogress .slider:hover {
+  opacity: 1;
+}
+
+.musicprogress .slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #000000;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.musicprogress .slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #4caf50;
+  cursor: pointer;
+}
+
+.volcontrols {
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.seekbar {
+  height: 4px;
+  width:98%;
+  background: black;
+  border-radius: 10px;
+  /* position: absolute; */
+  bottom: 8px;
+  margin-top: 30px;
+  cursor: pointer;
+}
+
+.circle {
+  width: 13px;
+  height: 13px;
+  border-radius: 13px;
+  background-color: black;
+  position: relative;
+  bottom: 5px;
+  left: 0%;
+  transition: left 0.5s;
 }
