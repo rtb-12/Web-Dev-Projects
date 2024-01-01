@@ -104,23 +104,103 @@ const playMusic = async (track, songname) => {
         </div>
     </div>
 </div>`;
-  window.onload = function () {
-    const myRange = document.getElementById("myRange");
-    if (myRange) {
-      myRange.addEventListener("change", (e) => {
-        console.log("Setting volume to", e.target.value, "/ 100");
-        currentSong.volume = parseInt(e.target.value) / 100;
-        if (currentSong.volume > 0) {
-          document.querySelector(".volume>img").src = document
-            .querySelector(".volume>img")
-            .src.replace("mute.svg", "volume.svg");
-        }
+
+  // Select the range input
+  const volumeSlider = document.querySelector(".level");
+
+  console.log("Volume slider:", volumeSlider);
+
+  if (volumeSlider) {
+    // Add an input event listener to the range input
+    volumeSlider.addEventListener("input", (e) => {
+      // Update the volume of the song based on the input value
+      // The input value is a string, so we convert it to a number by dividing by 100
+      let volumeLevel = e.target.value / 100;
+      currentSong.volume = volumeLevel;
+
+      // Log the volume level
+      console.log("Volume level:", volumeLevel);
+    });
+  } else {
+    console.error('Element with class "level" not found');
+  }
+
+
+
+
+  function attachEventListener() {
+    // Select the pause button
+    const pauseButton = document.querySelector(".musicbuttons .ri-pause-circle-line");
+    const playButton = document.querySelector(".musicbuttons .ri-play-circle-line");
+    const nextButton = document.querySelector(".musicbuttons .ri-skip-forward-line");
+    const prevButton = document.querySelector(".musicbuttons .ri-skip-back-line");
+    if (nextButton) {
+      // Add a click event listener to the next button
+      nextButton.addEventListener("click", () => {
+        // Code to play the next song
+        if (currentSongIndex === songs.length - 1) {playMusic(songsplay[0], songs[0]);
+          setAnimationState(true)
+          currentSongIndex = 0;}
+        else{
+        currentSongIndex+=1
+        playMusic(songsplay[currentSongIndex], songs[currentSongIndex]);
+        setAnimationState(true)}
       });
-    } else {
-      console.error('Element with id "myRange" not found');
     }
+    if (prevButton) {
+      // Add a click event listener to the previous button
+      if(currentSongIndex === 0){
+      prevButton.addEventListener("click", () => {
+        // Code to play the previous song
+        currentSongIndex=0
+        playMusic(songsplay[0], songs[0]);
+        setAnimationState(true)
+        
+      })}
+      else{ 
+        prevButton.addEventListener("click", () => {
+        // Code to play the previous song
+        currentSongIndex-=1
+        playMusic(songsplay[0], songs[0]);
+        setAnimationState(true)});
+    }}
+  
+  
+    if (pauseButton) {
+      // Add a click event listener to the pause button
+      pauseButton.addEventListener("click", () => {
+        document.querySelector(
+          ".musicbuttons"
+        ).innerHTML = ` <i class="ri-skip-back-line"></i>
+        <i class="ri-play-circle-line"></i>
+        <i class="ri-skip-forward-line"></i>
+        <i class="ri-heart-line"></i>`;
+        currentSong.pause();
+        setAnimationState(false)
+        // Reattach event listener
+        attachEventListener();
+      });
+    } 
+    if (playButton) {
+      // Add a click event listener to the play button
+      playButton.addEventListener("click", () => {
+        document.querySelector(
+          ".musicbuttons"
+        ).innerHTML = ` <i class="ri-skip-back-line"></i>
+        <i class="ri-pause-circle-line"></i>
+        <i class="ri-skip-forward-line"></i>
+        <i class="ri-heart-line"></i>`;
+        currentSong.play();
+        setAnimationState(true)
+        // Reattach event listener
+        attachEventListener();
+      });
+    }
+  }
+    attachEventListener();
   };
-};
+  // Call the function to attach the event listener when the page loads
+ 
 
 // play.src = "img/play.svg"
 
@@ -242,38 +322,57 @@ async function getAlbum() {
     </div>
 </div>`;
   }
-  document.querySelectorAll(".album").forEach((album) => {
-    album.addEventListener("click", () => {
-      const albumName = album.querySelector("h3").textContent;
-      console.log(albumName);
-      getSongs(`songs/${albumName}`);
+document.querySelectorAll(".album").forEach((album) => {
+  album.addEventListener("click", () => {
+    const albumName = album.querySelector("h3").textContent;
+    console.log(albumName);
+    getSongs(`songs/${albumName}`).then(() => {
+      playMusic(songsplay[0], songs[0]);
+      setAnimationState(true);
     });
   });
-}
-
-async function main() {
-    // After the currentSong is defined
-const progressBar = document.getElementById("myRange");
-
-// Update the max value of the progress bar to match the duration of the audio
-currentSong.addEventListener("loadedmetadata", () => {
-    progressBar.max = currentSong.duration;
-    console.log("loadedmetadata event fired. Duration: ", currentSong.duration);
-});
-
-// Update the value of the progress bar as the audio plays
-currentSong.addEventListener("timeupdate", () => {
-    progressBar.value = currentSong.currentTime;
-    console.log("timeupdate event fired. Current time: ", currentSong.currentTime);
-});
-
-// Seek the audio when the progress bar is clicked
-progressBar.addEventListener("input", () => {
-    currentSong.currentTime = progressBar.value;
-    console.log("input event fired. Progress bar value: ", progressBar.value);
 });
 }
 
-window.onload = getAlbum;
+function main() {
+  const songtime = document.querySelector(".seekbar");
+  if (songtime) {
+    currentSong.addEventListener("timeupdate", () => {
+      songtime.innerHTML = `${secondsToMinutesSeconds(
+        currentSong.currentTime
+      )} / ${secondsToMinutesSeconds(currentSong.duration)}`;
+      document.querySelector(".circle").style.left =
+        (currentSong.currentTime / currentSong.duration) * 100 + "%";
+      const seekbar = document.querySelector(".seekbar");
+      const circle = document.querySelector(".circle");
+
+      seekbar.addEventListener("click", (e) => {
+        // Calculate the percentage of the seekbar that was clicked
+        let percent = e.offsetX / seekbar.offsetWidth;
+
+        // Set the circle's position
+        circle.style.left = percent * 100 + "%";
+
+        // Set the current time of the song to the clicked position
+        currentSong.currentTime = percent * currentSong.duration;
+      });
+    });
+    
+  }
+  currentSong.addEventListener('ended', function() {
+    if (currentSongIndex === songs.length - 1) {
+      playMusic(songsplay[0], songs[0]);
+      setAnimationState(true);
+      currentSongIndex = 0;
+    } else {
+      currentSongIndex += 1;
+      playMusic(songsplay[currentSongIndex], songs[currentSongIndex]);
+      setAnimationState(true);
+    }
+  });
+  // Select the volume icon  // Select the pause button
+
+  getAlbum();
+}
 
 main();

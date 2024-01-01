@@ -601,7 +601,7 @@ button:active {
   cursor: pointer;
 }
 
-.circle {
+.circle{
   width: 13px;
   height: 13px;
   border-radius: 13px;
